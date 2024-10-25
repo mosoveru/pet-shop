@@ -15,12 +15,13 @@ skinparam actorStyle awesome
 (Оформить заказ) as Checkout
 (Изменить персональные данные) as ChangePersonalData
 (Просмотреть историю заказов\nи их состав) as OrderHistory
-(Просмотреть список активных заказов) as ShowActiveOrders
+(Просмотреть список последних заказов) as ShowActiveOrders
 (Управлять каталогом товаров) as ManageCatalog
 (Переименовать товар) as RenameItem
 (Скрыть товар) as HideItem
 (Поменять превью товара) as ChangeItemPreview
 (Удалить товар из каталога) as DeleteItemFromCatalog
+(Изменить статус заказа) as ChangeOrderStatus
 
 Logged ---|> User
 
@@ -33,15 +34,17 @@ OrderHistory --- Logged
 Admin --- Login
 Admin --- ShowActiveOrders
 Admin --- ManageCatalog
+Logged --- Logout
 
 Item ...> View : include
 Sort ...> View : include
-DeleteFromCart ...> Cart : include
-ChangeAmountInCart ...> Cart : include
-Logout ...> Login : include
-RenameItem ...> ManageCatalog : include
-HideItem ...> ManageCatalog : include
-ChangeItemPreview ...> ManageCatalog : include
-DeleteItemFromCatalog ...> ManageCatalog : include
+DeleteFromCart ...> Cart : extend
+ChangeAmountInCart ...> Cart : extend
+Cart ..> Checkout : include
+RenameItem ...> ManageCatalog : extend
+HideItem ...> ManageCatalog : extend
+ChangeItemPreview ...> ManageCatalog : extend
+DeleteItemFromCatalog ...> ManageCatalog : extend
 
+ChangeOrderStatus ..> ShowActiveOrders : extend
 @enduml
