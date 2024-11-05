@@ -1,0 +1,38 @@
+@startuml
+skinparam actorStyle awesome
+
+:Admin: as Admin
+
+(Просмотреть список активных заказов) as ShowActiveOrders
+(Управлять каталогом товаров) as ManageCatalog
+(Переименовать товар) as RenameItem
+(Скрыть товар) as HideItem
+(Поменять превью товара) as ChangeItemPreview
+(Загрузить полезную нагрузку товара) as UploadOrderPayload
+(Просмотреть историю всех заказов) as ShowFullOrdersHistory
+(Изменить статус заказа) as ChangeOrderStatus
+(Вывести подробную информацию о заказе) as AdditionalData
+(Найти заказ с помощью поиска) as FindOrder
+(Управлять состоянием заказа) as ManageOrderState
+(Поменять состав заказа) as ChangeOrderComposition
+(Скачать полезную нагрузку заказа) as DownloadOrderPayload
+
+Admin --- ShowActiveOrders
+Admin --- ManageCatalog
+Admin --- ShowFullOrdersHistory
+Admin --- ManageOrderState
+
+RenameItem ...> ManageCatalog : extend
+HideItem ...> ManageCatalog : extend
+ChangeItemPreview ...> ManageCatalog : extend
+UploadOrderPayload ..> ManageCatalog : extend
+ChangeOrderStatus ..> ShowActiveOrders : extend
+AdditionalData ..> ShowActiveOrders : extend
+AdditionalData ..> ShowFullOrdersHistory : extend
+FindOrder ..> ShowFullOrdersHistory : extend
+
+ChangeOrderComposition ..> ManageOrderState : extend
+ChangeOrderStatus ..> ManageOrderState : extend
+DownloadOrderPayload ..> ManageOrderState : extend
+
+@enduml
