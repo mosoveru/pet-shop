@@ -1,8 +1,9 @@
 @startuml
+
 skinparam actorStyle awesome
+
 :User: as User
 :Logged User: as Logged
-:Admin: as Admin
 
 (Просмотреть список товаров) as View
 (Зайти в аккаунт) as Login
@@ -10,41 +11,32 @@ skinparam actorStyle awesome
 (Просмотреть карточку товара) as Item
 (Сортировать список товаров) as Sort
 (Добавить товар в корзину) as Cart
-(Удалить товар из корзины) as DeleteFromCart
+( ) as DeleteFromCart
 (Изменить количество товара в корзине) as ChangeAmountInCart
 (Оформить заказ) as Checkout
 (Изменить персональные данные) as ChangePersonalData
-(Просмотреть историю заказов\nи их состав) as OrderHistory
-(Просмотреть список последних заказов) as ShowActiveOrders
-(Управлять каталогом товаров) as ManageCatalog
-(Переименовать товар) as RenameItem
-(Скрыть товар) as HideItem
-(Поменять превью товара) as ChangeItemPreview
-(Удалить товар из каталога) as DeleteItemFromCatalog
-(Изменить статус заказа) as ChangeOrderStatus
+(Просмотреть историю заказов\nаккаунта и их состав) as OrderHistory
+(Скачать полезную нагрузку заказа) as DownloadOrderPayload
 
 Logged ---|> User
 
 Logged --- Checkout
+Logged --- Logout
+Logged --- ChangePersonalData
+Logged --- OrderHistory
 User --- View
 User --- Login
 User --- Cart
-ChangePersonalData --- Logged
-OrderHistory --- Logged
-Admin --- Login
-Admin --- ShowActiveOrders
-Admin --- ManageCatalog
-Logged --- Logout
+User --- Register
+User --- RecoverPassword
 
 Item ...> View : include
 Sort ...> View : include
+Checkout ..> Cart : include
 DeleteFromCart ...> Cart : extend
 ChangeAmountInCart ...> Cart : extend
-Cart ..> Checkout : include
-RenameItem ...> ManageCatalog : extend
-HideItem ...> ManageCatalog : extend
-ChangeItemPreview ...> ManageCatalog : extend
-DeleteItemFromCatalog ...> ManageCatalog : extend
+DownloadOrderPayload ..> OrderHistory : extend
 
-ChangeOrderStatus ..> ShowActiveOrders : extend
+note right of Logged : Не может заходить в аккаунт и\nи зарегистрироваться
+
 @enduml
