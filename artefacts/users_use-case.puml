@@ -11,12 +11,14 @@ skinparam actorStyle awesome
 (Просмотреть карточку товара) as Item
 (Сортировать список товаров) as Sort
 (Добавить товар в корзину) as Cart
-( ) as DeleteFromCart
+(Удалить товар из корзины) as DeleteFromCart
 (Изменить количество товара в корзине) as ChangeAmountInCart
 (Оформить заказ) as Checkout
 (Изменить персональные данные) as ChangePersonalData
 (Просмотреть историю заказов\nаккаунта и их состав) as OrderHistory
 (Скачать полезную нагрузку заказа) as DownloadOrderPayload
+(Зарегистрировать аккаунт) as Register
+(Восстановить пароль) as RecoverPassword
 
 Logged ---|> User
 
@@ -33,7 +35,7 @@ User --- RecoverPassword
 Item ...> View : include
 Sort ...> View : include
 Checkout ..> Cart : include
-DeleteFromCart ...> Cart : extend
+DeleteFromCart ...> Cart : с
 ChangeAmountInCart ...> Cart : extend
 DownloadOrderPayload ..> OrderHistory : extend
 
